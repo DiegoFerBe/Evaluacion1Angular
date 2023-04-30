@@ -1,3 +1,19 @@
-<p>
-  vehicle-list works!
-</p>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Marca</th>
+      <th>Linea</th>
+      <th>Modelo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vehicle of vehicles">
+      <td><b>{{vehicle.id}}</b></td>
+      <td>{{vehicle.marca}}</td>
+      <td>{{vehicle.linea}}</td>
+      <td>{{vehicle.modelo}}</td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" class="btn">Base class</button>
