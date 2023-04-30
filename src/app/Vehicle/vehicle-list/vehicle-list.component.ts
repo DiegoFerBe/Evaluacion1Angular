@@ -5,20 +5,39 @@ import { Vehicle } from '../Vehicle';
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
-  styleUrls: ['./vehicle-list.component.css']
+  styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent implements OnInit {
+  vehicles: Vehicle[] = [];
+  quantity: any[] = [];
 
-  vehicles:Vehicle[] = [];
-
-  constructor(private vehicleService:VehicleService) { }
+  constructor(private vehicleService: VehicleService) {}
 
   ngOnInit() {
-    this.vehicleService.getVehicles().subscribe(
-      (data) => {
-        this.vehicles = data;
-      }
-    );
-  }
+    this.vehicleService.getVehicles().subscribe((data) => {
+      this.vehicles = data;
+      this.countVehiclesByBrand(this.vehicles);
+    }
+      );
+    }
 
+
+
+  countVehiclesByBrand(vehicles:Vehicle[]){
+    const brands:string[]= vehicles.map((vehicle) => {
+      return vehicle.marca;
+    });
+    let uniqueBrands = new Set(brands);
+    uniqueBrands.forEach((brand) => {
+      const count = this.vehicles.reduce((acc, vehicle) => {
+        if (vehicle.marca === brand) {
+          acc++;
+        }
+        return acc;
+      }, 0);
+      this.quantity.push({ brand, count});
+    }
+    );
+
+  }
 }
